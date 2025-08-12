@@ -9,16 +9,18 @@
   border-collapse: collapse;
   margin: 20px auto;
   text-align: center;
-  max-width: 100%;       /* Make table fit screen width */
-  width: 320px;          /* Set a fixed width good for phones */
+  width: 90vw;       /* 90% of viewport width */
+  max-width: 480px;  /* max size on larger screens */
 }
 
 th, td {
-  border: 1px solid black;
-  padding: 15px 20px;    /* Bigger padding for easier tapping */
-  font-size: 2em;        /* Larger font size */
-  width: 64px;           /* Bigger cell width */
-  height: 64px;          /* Bigger cell height */
+  border: 2px solid black;
+  padding: 25px 30px;   /* bigger padding */
+  font-size: 2.8em;     /* bigger font */
+  width: 18vw;          /* 18% of viewport width */
+  height: 18vw;         /* square cells */
+  max-width: 90px;      /* cap max cell size */
+  max-height: 90px;
 }
 
     th {
@@ -27,7 +29,7 @@ th, td {
     #playerNameDisplay {
       text-align: center;
       margin-top: 20px;
-      font-size: 1.2em;
+      font-size: 1.7em;
     }
     #instructions {
       text-align: center;
