@@ -103,24 +103,33 @@ td.marked {
     }
 
     // Render the Bingo card in the table body
-   function renderCard(card) {
-  const tbody = document.querySelector('#bingoCard tbody');
-  tbody.innerHTML = '';
-  for (const row of card) {
-    const tr = document.createElement('tr');
-    for (const num of row) {
-      const td = document.createElement('td');
-      td.textContent = num;
-      // Add click listener to toggle "marked" class
-      td.addEventListener('click', () => {
-        td.classList.toggle('marked');
+function renderCard(card) {
+  const bingoCardDiv = document.getElementById('bingo-card');
+  bingoCardDiv.innerHTML = '';
+
+  // Add column headers
+  const headers = ['M', 'U', 'S', 'I', 'C'];
+  headers.forEach(header => {
+    const headerDiv = document.createElement('div');
+    headerDiv.textContent = header;
+    headerDiv.style.fontWeight = 'bold';
+    headerDiv.style.fontSize = '1.5em';
+    bingoCardDiv.appendChild(headerDiv);
+  });
+
+  // Create buttons for each number in the card
+  for (let row = 0; row < 5; row++) {
+    for (let col = 0; col < 5; col++) {
+      const num = card[row][col];
+      const btn = document.createElement('button');
+      btn.textContent = num;
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('marked');
       });
-      tr.appendChild(td);
+      bingoCardDiv.appendChild(btn);
     }
-    tbody.appendChild(tr);
   }
 }
-
 
     // Main execution
     const playerName = getNameFromUrl();
