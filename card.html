@@ -1,0 +1,121 @@
+<!-- card.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Music Bingo - Your Card</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      margin: 20px auto;
+      text-align: center;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 10px 15px;
+      font-size: 1.5em;
+      width: 60px;
+      height: 60px;
+    }
+    th {
+      background-color: #ccc;
+    }
+    #playerNameDisplay {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+    #instructions {
+      text-align: center;
+      margin-top: 30px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align:center;">Music Bingo</h1>
+  <div id="playerNameDisplay"></div>
+
+  <table id="bingoCard">
+    <thead>
+      <tr>
+        <th>M</th>
+        <th>U</th>
+        <th>S</th>
+        <th>I</th>
+        <th>C</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div id="instructions">When you need a new card, refresh the page.</div>
+
+  <script>
+    // Get player's name from URL parameters
+    function getNameFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('name') || 'Player';
+    }
+
+    // Number ranges for each column
+    const columnRanges = {
+      M: [1, 10],
+      U: [16, 25],
+      S: [31, 40],
+      I: [46, 55],
+      C: [61, 70]
+    };
+
+    // Generate 5 unique random numbers within a range
+    function generateNumbers(min, max) {
+      const numbers = new Set();
+      while (numbers.size < 5) {
+        const num = Math.floor(Math.random() * (max - min + 1)) + min;
+        numbers.add(num);
+      }
+      return Array.from(numbers).sort((a, b) => a - b);
+    }
+
+    // Build the Bingo card data as an array of arrays (rows)
+    function buildBingoCard() {
+      const card = [];
+      // Generate columns first
+      const columns = {};
+      for (const col in columnRanges) {
+        const [min, max] = columnRanges[col];
+        columns[col] = generateNumbers(min, max);
+      }
+      // Build rows by taking the nth number from each column
+      for (let i = 0; i < 5; i++) {
+        card[i] = [];
+        for (const col of ['M', 'U', 'S', 'I', 'C']) {
+          card[i].push(columns[col][i]);
+        }
+      }
+      return card;
+    }
+
+    // Render the Bingo card in the table body
+    function renderCard(card) {
+      const tbody = document.querySelector('#bingoCard tbody');
+      tbody.innerHTML = '';
+      for (const row of card) {
+        const tr = document.createElement('tr');
+        for (const num of row) {
+          const td = document.createElement('td');
+          td.textContent = num;
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+      }
+    }
+
+    // Main execution
+    const playerName = getNameFromUrl();
+    document.getElementById('playerNameDisplay').textContent = `Hello, ${playerName}! Here's your card:`;
+    const bingoCard = buildBingoCard();
+    renderCard(bingoCard);
+  </script>
+</body>
+</html>
