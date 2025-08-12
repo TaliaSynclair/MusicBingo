@@ -44,6 +44,41 @@ td.marked {
   font-weight: bold;
 }
 
+    #bingo-card {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+  justify-items: center;
+  max-width: 320px;
+  margin: 0 auto;
+}
+#bingo-card-container {
+  width: 320px;
+  margin: auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+#bingo-card button {
+  font-size: 18px;
+  padding: 15px;
+  width: 50px;
+  height: 50px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+#bingo-card button:hover {
+  background-color: #f7f7f7;
+  transform: scale(1.1);
+}
+#bingo-card button.marked {
+  text-decoration: line-through;
+  color: red;
+  background-color: #e0e0e0;
+}
+
   </style>
 </head>
 <body>
