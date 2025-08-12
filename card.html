@@ -30,6 +30,13 @@
       margin-top: 30px;
       font-style: italic;
     }
+    /* Style for marked cells */
+td.marked {
+  background-color: lightgreen;
+  color: white;
+  font-weight: bold;
+}
+
   </style>
 </head>
 <body>
@@ -97,19 +104,24 @@
     }
 
     // Render the Bingo card in the table body
-    function renderCard(card) {
-      const tbody = document.querySelector('#bingoCard tbody');
-      tbody.innerHTML = '';
-      for (const row of card) {
-        const tr = document.createElement('tr');
-        for (const num of row) {
-          const td = document.createElement('td');
-          td.textContent = num;
-          tr.appendChild(td);
-        }
-        tbody.appendChild(tr);
-      }
+   function renderCard(card) {
+  const tbody = document.querySelector('#bingoCard tbody');
+  tbody.innerHTML = '';
+  for (const row of card) {
+    const tr = document.createElement('tr');
+    for (const num of row) {
+      const td = document.createElement('td');
+      td.textContent = num;
+      // Add click listener to toggle "marked" class
+      td.addEventListener('click', () => {
+        td.classList.toggle('marked');
+      });
+      tr.appendChild(td);
     }
+    tbody.appendChild(tr);
+  }
+}
+
 
     // Main execution
     const playerName = getNameFromUrl();
